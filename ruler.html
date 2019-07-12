@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title> İplik Numara Cetveli</title>
+<style>
+   canvas {
+     border: 1px solid black;
+   }
+</style>
+
+<canvas id="myCanvas" height="1000" width="500"></canvas>
+
+<script>
+
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    class Pixel {
+        constructor(birim, x, y){
+            this.x = x;
+            this.y = y;
+            this.birim = birim;
+        }
+        calculate() {
+
+        }
+        ciz() {
+            if (this.y % 100 == 0) {
+                ctx.fillRect(this.x, this.y, 30, 1);
+                ctx.fillText(this.y + this.birim, this.x, this.y);
+            }
+            if (this.y % 50 == 0) {
+                ctx.fillRect(this.x, this.y, 15, 1);
+            }
+            if (this.y % 10 == 0) {
+                ctx.fillRect(this.x, this.y, 5, 1);
+            }
+        }
+    }
+
+
+    class Pixel2 {
+        constructor(birim, x, deger){
+            this.x = x;
+            this.deger = deger;
+            this.birim = birim;
+        }
+        calculate() {
+            this.y = this.deger;
+        }
+        ciz() {
+            if (this.deger % 10 == 0) {
+                ctx.fillRect(this.x, this.y, 30, 1);
+                ctx.fillText(this.deger + this.birim, this.x + 5, this.y);
+            }
+            if (this.deger % 5 == 0) {
+                ctx.fillRect(this.x, this.y, 15, 1);
+            }
+            if (this.deger % 1 == 0) {
+                ctx.fillRect(this.x, this.y, 5, 1);
+            }
+        }
+    }
+
+    class GramPixel2 extends Pixel2 {
+        calculate() {
+            this.y = this.deger * 10;
+        }
+    }
+
+    class TexPixel2 extends Pixel2 {
+        calculate() {
+            this.y = this.deger * 10;
+        }
+    }
+
+    class DenyePixel2 extends Pixel2 {
+        calculate() {
+            this.y = this.deger / 0.9;
+        }
+        ciz() {
+            if (this.deger % 100 == 0) {
+                ctx.fillRect(this.x, this.y, 30, 1);
+                ctx.fillText(this.deger + this.birim, this.x + 5, this.y);
+            }
+            if (this.deger % 50 == 0) {
+                ctx.fillRect(this.x, this.y, 15, 1);
+            }
+            if (this.deger % 10 == 0) {
+                ctx.fillRect(this.x, this.y, 5, 1);
+            }
+        }
+    }
+
+    class NmPixel2 extends Pixel2 {
+        calculate() {
+            this.y = 10000 / this.deger;
+        }
+    }
+
+    class NePixel2 extends Pixel2 {
+        calculate() {
+            this.y = 6000 / this.deger;
+        }
+    }
+
+    class TexPixel3 extends Pixel2 {
+        calculate() {
+            this.y = 10000 / this.deger;
+        }
+    }
+
+    // strategy
+
+    var sonuc_kumesi = [];
+
+    const column_width = canvas.width / 7;
+
+    for (i = 0; i < canvas.height; i++){
+        sonuc_kumesi.push(
+            new Pixel("px", 0, i),
+            new GramPixel2("gr/km", column_width, i),
+            new TexPixel2("tex", column_width * 2, i),
+            new DenyePixel2("den", column_width * 3, i),
+            new TexPixel3("m/gr", column_width * 4, i),
+            new NmPixel2("Nm", column_width * 5, i),
+            new NePixel2("Ne", column_width * 6, i)
+        );
+    }
+
+
+    for (eleman of sonuc_kumesi) {
+        //if ("calculate" in eleman) eleman.calculate();
+        eleman.calculate();
+        eleman.ciz();
+    }
+
+
+    console.log(sonuc_kumesi.length);
+
+
+</script>
