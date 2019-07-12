@@ -20,9 +20,11 @@
             this.y = y;
             this.birim = birim;
         }
+       
         calculate() {
 
         }
+       
         ciz() {
             if (this.y % 100 == 0) {
                 ctx.fillRect(this.x, this.y, 30, 1);
@@ -44,9 +46,11 @@
             this.deger = deger;
             this.birim = birim;
         }
+       
         calculate() {
             this.y = this.deger;
         }
+       
         ciz() {
             if (this.deger % 10 == 0) {
                 ctx.fillRect(this.x, this.y, 30, 1);
